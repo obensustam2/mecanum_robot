@@ -2,6 +2,9 @@
 
 <launch>
 
+  <!-- Launch other relevant files-->
+  <include file="$(find mecanum_robot)/launch/robot_description.launch"/>
+
   <!-- World File -->
   <arg name="world_file" default="$(find mecanum_robot)/worlds/new_world.world"/> 
 
@@ -12,9 +15,6 @@
     <arg name="gui" value="true" />
     <arg name="world_name" value="$(arg world_file)"/>
   </include>
-
-  <!-- Launch other relevant files-->
-  <include file="$(find mecanum_robot)/launch/robot_description.launch"/>
 
   <!-- Robot pose -->
   <arg name="x" default="3.0"/>

@@ -4,47 +4,36 @@
 
   <xacro:include filename="$(find mecanum_robot)/urdf/mecanum_robot.gazebo" />
 
-<!-- .............Robot Footprint & Chassis................................................... -->
+<!-- .............Robot Footprint & Chassis (Link - Joint).......................................... -->
 
-  <link name="robot_footprint"></link>
+  <link name="robot_footprint">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+  </link>
 
-  <link
-    name="chassis">
+  <link name="chassis">
     <inertial>
-      <origin
-        xyz="-8.294E-05 -7.7011E-11 -0.023972"
-        rpy="0 0 0" />
-      <mass
-        value="6.5996" />
-      <inertia
-        ixx="0.043356"
-        ixy="-1.6809E-08"
-        ixz="-1.7057E-07"
-        iyy="0.13461"
-        iyz="3.8673E-11"
-        izz="0.17533" />
+      <origin xyz="-8.294E-05 -7.7011E-11 -0.023972" rpy="0 0 0" />
+      <mass value="6.5996" />
+      <inertia ixx="0.043356" ixy="-1.6809E-08" ixz="-1.7057E-07" iyy="0.13461" iyz="3.8673E-11" izz="0.17533" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/chassis.STL" />
+        <mesh filename="package://mecanum_robot/meshes/chassis.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name=""> 
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/chassis.STL" />
+        <mesh filename="package://mecanum_robot/meshes/chassis.STL" />
       </geometry>
     </collision>
   </link>
@@ -55,258 +44,182 @@
     <child link="chassis" />
   </joint>
 
-<!-- ................Rear Right Wheel................................................ -->
+<!-- ................Rear Right Wheel (Link - Joint - Transmission)................................ -->
 
-  <link
-    name="rear_right_wheel">
+  <link name="rear_right_wheel">
     <inertial>
-      <origin
-        xyz="1.624E-12 -3.4926E-12 0.021031"
-        rpy="0 0 0" />
-      <mass
-        value="0.049871" />
-      <inertia
-        ixx="5.3189E-06"
-        ixy="1.2084E-15"
-        ixz="-9.388E-17"
-        iyy="5.3189E-06"
-        iyz="1.994E-16"
-        izz="6.4396E-06" />
+      <origin xyz="1.624E-12 -3.4926E-12 0.021031" rpy="0 0 0" />
+      <mass value="0.049871" />
+      <inertia ixx="5.3189E-06" ixy="1.2084E-15" ixz="-9.388E-17" iyy="5.3189E-06" iyz="1.994E-16" izz="6.4396E-06" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/rear_right_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/rear_right_wheel.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/rear_right_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/rear_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
 
-  <joint
-    name="rear_right_wheel_joint"
-    type="continuous">
-    <origin
-      xyz="0.1175 0.113 -0.03"
-      rpy="1.5708 -0.55618 3.1416" />
-    <parent
-      link="chassis" />
-    <child
-      link="rear_right_wheel" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="200"
-      velocity="5" />
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <origin xyz="0.1175 0.113 -0.03" rpy="1.5708 -0.55618 3.1416" />
+    <parent link="chassis" />
+    <child link="rear_right_wheel" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="200" velocity="5" />
   </joint>
 
-<!-- ..................Rear Left Wheel............................................... -->
+  <transmission name="rear_right_wheel_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_right_wheel_joint" >
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_right_wheel_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
-  <link
-    name="rear_left_wheel">
+<!-- ..................Rear Left Wheel (Link - Joint - Transmission)................................ -->
+
+  <link name="rear_left_wheel">
     <inertial>
-      <origin
-        xyz="-6.2922E-13 3.7938E-12 0.021031"
-        rpy="0 0 0" />
-      <mass
-        value="0.049871" />
-      <inertia
-        ixx="5.3189E-06"
-        ixy="5.4099E-16"
-        ixz="3.9906E-17"
-        iyy="5.3189E-06"
-        iyz="-2.1312E-16"
-        izz="6.4396E-06" />
+      <origin xyz="-6.2922E-13 3.7938E-12 0.021031" rpy="0 0 0" />
+      <mass value="0.049871" />
+      <inertia ixx="5.3189E-06" ixy="5.4099E-16" ixz="3.9906E-17" iyy="5.3189E-06" iyz="-2.1312E-16" izz="6.4396E-06" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/rear_left_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/rear_left_wheel.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/rear_left_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/rear_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
 
-  <joint
-    name="rear_left_wheel_joint"
-    type="continuous">
-    <origin
-      xyz="0.1175 -0.113 -0.03"
-      rpy="-1.5708 -1.0094 3.1416" />
-    <parent
-      link="chassis" />
-    <child
-      link="rear_left_wheel" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="200"
-      velocity="5" />
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <origin xyz="0.1175 -0.113 -0.03" rpy="-1.5708 -1.0094 3.1416" />
+    <parent link="chassis" />
+    <child link="rear_left_wheel" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="200" velocity="5" />
   </joint>
 
-<!-- ....................Front Right Wheel..................................................... -->
+  <transmission name="rear_left_wheel_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_left_wheel_joint" >
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_left_wheel_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
-  <link
-    name="front_right_wheel">
+<!-- ....................Front Right Wheel (Link - Joint - Transmission)................................ -->
+
+  <link name="front_right_wheel">
     <inertial>
-      <origin
-        xyz="-6.2939E-13 3.7953E-12 0.021031"
-        rpy="0 0 0" />
-      <mass
-        value="0.049871" />
-      <inertia
-        ixx="5.3189E-06"
-        ixy="5.4109E-16"
-        ixz="3.6773E-17"
-        iyy="5.3189E-06"
-        iyz="-2.1556E-16"
-        izz="6.4396E-06" />
+      <origin xyz="-6.2939E-13 3.7953E-12 0.021031" rpy="0 0 0" />
+      <mass value="0.049871" />
+      <inertia ixx="5.3189E-06" ixy="5.4109E-16" ixz="3.6773E-17" iyy="5.3189E-06" iyz="-2.1556E-16" izz="6.4396E-06" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/front_right_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/front_right_wheel.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/front_right_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/front_right_wheel.STL" />
       </geometry>
     </collision>
   </link>
 
 
-  <joint
-    name="front_right_wheel_joint"
-    type="continuous">
-    <origin
-      xyz="-0.1175 0.113 -0.03"
-      rpy="1.5708 0.55618 3.1416" />
-    <parent
-      link="chassis" />
-    <child
-      link="front_right_wheel" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="200"
-      velocity="5" />
+  <joint name="front_right_wheel_joint" type="continuous">
+    <origin xyz="-0.1175 0.113 -0.03" rpy="1.5708 0.55618 3.1416" />
+    <parent link="chassis" />
+    <child link="front_right_wheel" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="200" velocity="5" />
   </joint>
 
-<!-- ..................Front Left Wheel....................................................... -->
+  <transmission name="front_right_wheel_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_right_wheel_joint" >
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="front_right_wheel_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
-  <link
-    name="front_left_wheel">
+<!-- ..................Front Left Wheel (Link - Joint - Transmission)................................ -->
+
+  <link name="front_left_wheel">
     <inertial>
-      <origin
-        xyz="1.451E-12 -3.5752E-12 0.021031"
-        rpy="0 0 0" />
-      <mass
-        value="0.049871" />
-      <inertia
-        ixx="5.3189E-06"
-        ixy="1.1259E-15"
-        ixz="-8.0856E-17"
-        iyy="5.3189E-06"
-        iyz="2.0104E-16"
-        izz="6.4396E-06" />
+      <origin xyz="1.451E-12 -3.5752E-12 0.021031" rpy="0 0 0" />
+      <mass value="0.049871" />
+      <inertia ixx="5.3189E-06" ixy="1.1259E-15" ixz="-8.0856E-17" iyy="5.3189E-06" iyz="2.0104E-16" izz="6.4396E-06" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/front_left_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/front_left_wheel.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mecanum_robot/meshes/front_left_wheel.STL" />
+        <mesh filename="package://mecanum_robot/meshes/front_left_wheel.STL" />
       </geometry>
     </collision>
   </link>
 
-  <joint
-    name="front_left_wheel_joint"
-    type="continuous">
-    <origin
-      xyz="-0.1175 -0.113 -0.03"
-      rpy="-1.5708 1.3416 3.1416" />
-    <parent
-      link="chassis" />
-    <child
-      link="front_left_wheel" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="200"
-      velocity="5" />
+  <joint name="front_left_wheel_joint" type="continuous">
+    <origin xyz="-0.1175 -0.113 -0.03" rpy="-1.5708 1.3416 3.1416" />
+    <parent link="chassis" />
+    <child link="front_left_wheel" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="200" velocity="5" />
   </joint>
 
-<!-- ............................Camera........................................... -->
+  <transmission name="front_left_wheel_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_left_wheel_joint" >
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="front_left_wheel_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
-  <link name="camera">
+<!-- ............................Camera (Link - Joint)..................................... -->
+
+  <!-- <link name="camera">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.1"/>
@@ -331,9 +244,9 @@
     <parent link="chassis"/>
     <child link="camera"/>
     <axis xyz="0.0 1.0 0.0"/>
-  </joint>
+  </joint> -->
 
-<!-- .........................Hokuyo.......................................... -->
+<!-- .........................Lidar (Link - Joint)................................... -->
 
   <link name="hokuyo">
     <inertial>
