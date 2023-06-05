@@ -2,18 +2,15 @@
 
 <robot name="mecanum_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find mecanum_robot)/urdf/mecanum_robot.gazebo" />
+<xacro:include filename="$(find mecanum_robot)/urdf/mecanum_robot.gazebo" />
+
+  <!-- Wheels -->
+  <xacro:property name="r" value="0.03" /> <!-- wheel radius in m-->
+  <xacro:property name="h" value="0.03" /> <!-- wheel length in m-->
 
 <!-- .............Robot Footprint & Chassis (Link - Joint).......................................... -->
 
-  <link name="robot_footprint">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.001 0.001 0.001" />
-      </geometry>
-    </visual>
-  </link>
+  <link name="robot_footprint"/>
 
   <link name="chassis">
     <inertial>
@@ -33,13 +30,13 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://mecanum_robot/meshes/chassis.STL" />
+	      <mesh filename="package://mecanum_robot/meshes/chassis.STL" />
       </geometry>
     </collision>
   </link>
 
   <joint name="robot_footprint_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0 0 0.05" rpy="0 0 0" />
     <parent link="robot_footprint"/>
     <child link="chassis" />
   </joint>
@@ -64,7 +61,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://mecanum_robot/meshes/rear_right_wheel.STL" />
+        <cylinder length="${h}" radius="${r}" />
       </geometry>
     </collision>
   </link>
@@ -107,7 +104,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://mecanum_robot/meshes/rear_left_wheel.STL" />
+        <cylinder length="${h}" radius="${r}" />
       </geometry>
     </collision>
   </link>
@@ -150,7 +147,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://mecanum_robot/meshes/front_right_wheel.STL" />
+        <cylinder length="${h}" radius="${r}" />
       </geometry>
     </collision>
   </link>
@@ -194,7 +191,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://mecanum_robot/meshes/front_left_wheel.STL" />
+        <cylinder length="${h}" radius="${r}" />
       </geometry>
     </collision>
   </link>
@@ -219,7 +216,7 @@
 
 <!-- ............................Camera (Link - Joint)..................................... -->
 
-  <!-- <link name="camera">
+  <link name="camera">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.1"/>
@@ -228,13 +225,13 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.05 0.05 0.05"/>
+        <box size="0.04 0.04 0.04"/>
       </geometry>
     </collision>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.05 0.05 0.05"/>
+        <box size="0.04 0.04 0.04"/>
       </geometry>
     </visual>
   </link>
@@ -244,7 +241,7 @@
     <parent link="chassis"/>
     <child link="camera"/>
     <axis xyz="0.0 1.0 0.0"/>
-  </joint> -->
+  </joint>
 
 <!-- .........................Lidar (Link - Joint)................................... -->
 
@@ -272,7 +269,7 @@
     <origin xyz="0.0 0.0 0.03" rpy="0.0 0.0 0.0"/>
     <parent link="chassis"/>
     <child link="hokuyo"/>
-    <axis xyz="0.0 1.0 0.0"/>
+    <axis xyz="0.0 1.0 0.2"/>
   </joint>
 
 </robot>

@@ -18,11 +18,11 @@
 
   <!-- Robot pose -->
   <arg name="x" default="3.0"/>
-  <arg name="y" default="3.0"/>
+  <arg name="y" default="-2.0"/>
   <arg name="z" default="0"/>
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
-  <arg name="yaw" default="3.14"/>
+  <arg name="yaw" default="0"/>
 
   <!-- Spawn My Robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
