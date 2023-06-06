@@ -24,6 +24,7 @@ rosrun map_server map_saver -f ~/<folder_name>/<map_name>
 ```bash
 roslaunch mecanum_robot world.launch
 roslaunch mecanum_robot navigation.launch
+rosrun mecanum_robot move_goal.py
 ```
 
 ## Mechanical Properties
