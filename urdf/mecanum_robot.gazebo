@@ -17,6 +17,7 @@
   <gazebo reference="camera">
     <sensor type="camera" name="camera1">
       <update_rate>30.0</update_rate>
+      <visualize>true</visualize>
       <camera name="head">
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
@@ -50,7 +51,7 @@
   <gazebo reference="hokuyo">
     <sensor type="ray" name="head_hokuyo_sensor">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
       <update_rate>40</update_rate>
       <ray>
         <scan>

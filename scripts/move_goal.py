@@ -23,7 +23,7 @@ def send_goal():
     goal.target_pose.header.frame_id = "map"
 
     # Set the goal position
-    goal.target_pose.pose.position = Point(1.0, 2.0, 0.0)
+    goal.target_pose.pose.position = Point(1.0, 8.0, 0.0)
 
     # Set the goal orientation (as a quaternion)
     goal.target_pose.pose.orientation = Quaternion(0.0, 0.0, 0.0, 1.0)

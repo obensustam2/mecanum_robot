@@ -6,7 +6,7 @@
   <include file="$(find mecanum_robot)/launch/robot_description.launch"/>
 
   <!-- World File -->
-  <arg name="world_file" default="$(find mecanum_robot)/worlds/new_world.world"/> 
+  <arg name="world_file" default="$(find mecanum_robot)/world/mecanum_world.world"/> 
 
   <!-- Launch Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
