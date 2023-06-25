@@ -1,20 +1,11 @@
 global_costmap:
-   global_frame: map
-   robot_base_frame: robot_footprint
-   update_frequency: 1.0   
-   transform_tolerance: 3.5
+  global_frame: map
+  robot_base_frame: robot_footprint
 
-   publish_frequency: 0.5
-   static_map: true
-   rolling_window: false
+  update_frequency: 10.0
+  publish_frequency: 10.0
+  transform_tolerance: 0.5
 
-   footprint_padding: 0.02
-   plugins:
-     - {name: static_layer,            type: "costmap_2d::StaticLayer"} #static map
-     - {name: laser_layer,             type: "costmap_2d::ObstacleLayer"} #laser use on walls and objects
-     - {name: inflation_layer,         type: "costmap_2d::InflationLayer"} #inflation layer
-
-
-
-
+  static_map: true
+ 
 

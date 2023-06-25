@@ -40,3 +40,5 @@
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mecanum_robot)/rviz/gmapping.rviz"/> 
 
 </launch>
+
+
