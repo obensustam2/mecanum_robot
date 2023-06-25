@@ -6,7 +6,7 @@
   <include file="$(find mecanum_robot)/launch/robot_description.launch"/>
 
   <!-- World File -->
-  <arg name="world_file" default="$(find mecanum_robot)/world/mecanum_world.world"/> 
+  <arg name="world_file" default="$(find mecanum_robot)/world/updated_world.world"/> 
 
   <!-- Launch Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -17,9 +17,9 @@
   </include>
 
   <!-- Robot pose -->
-  <arg name="x" default="3.0"/>
-  <arg name="y" default="-2.0"/>
-  <arg name="z" default="0"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.0"/>
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
   <arg name="yaw" default="0"/>

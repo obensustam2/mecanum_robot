@@ -2,7 +2,7 @@
 <launch>
 
   <!-- Map server -->
-  <arg name="map_file" default="$(find mecanum_robot)/maps/new_map.yaml"/>
+  <arg name="map_file" default="$(find mecanum_robot)/maps/updated_world.yaml"/>
   <master auto="start"/>
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
   
