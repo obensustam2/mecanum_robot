@@ -1,3 +1,23 @@
+# Autonomous Parking of Mecanum Wheel Robot
+
+The project is implemented as a part of the Case Study Autonomous System lecture at TH Deggendorf.
+
+## Team members
+```bash
+Oben Sustam
+Eby Jose
+Basem Aboudeshish
+Mohamed Mady
+```
+
+## Mechanical Properties
+```bash
+Wheel Width: 31.5 mm
+Wheel Radius: ~ 30 mm
+Wheel Base: 235 mm
+Track: ~ 270mm
+```
+
 ## Installations
 ```bash
 sudo apt-get install ros-<ROS_VERSION>-teleop-twist-keyboard
@@ -27,10 +47,3 @@ roslaunch mecanum_robot navigation.launch
 rosrun mecanum_robot move_goal.py
 ```
 
-## Mechanical Properties
-```bash
-Wheel Width: 31.5 mm
-Wheel Radius: ~ 30 mm
-Wheel Base: 235 mm
-Track: ~ 270mm
-```
